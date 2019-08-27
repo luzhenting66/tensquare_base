@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pipilu.tensquare.mapper.AreaMapper">
+    <select id="queryAreaByTerritoryCode" resultType="cn.pipilu.tensquare.po.AreaEntity">
+        SELECT
+        a.area_code,
+        a.area_name,
+        a.area_type,
+        a.conn_entity,
+        a.territory_code,
+        a.`status`,
+        a.dead_sts,
+        a.parent_area
+        FROM
+        tb_area a
+        WHERE
+        a.territory_code = #{territoryCode} and a.status != 'DELETED'
+    </select>
+
+    <select id="queryAreaByTerritory" resultMap="areaMap">
+  SELECT
+         a.area_code,
+        a.area_name,
+        a.area_type,
+        a.conn_entity,
+        a.territory_code,
+        a.`status`,
+        a.dead_sts,
+        a.parent_area
+        FROM
+        tb_area a
+        WHERE
+        a.territory_code = #{territoryCode} and a.status != 'DELETED'
+    </select>
+
+    <resultMap id="areaMap" type="cn.pipilu.tensquare.po.AreaEntity">
+        <result column="area_code" property="areaCode"/>
+        <result column="area_name" property="areaName"/>
+        <result column="area_type" property="areaType"/>
+        <result column="conn_entity" property="connEntity"/>
+        <result column="conn_entity" property="connEntity"/>
+        <result column="status" property="status"/>
+        <result column="dead_sts" property="deadSts"/>
+        <result column="territory_code" property="territoryCode"/>
+        <collection column="parent_area" ofType="cn.pipilu.tensquare.po.AreaEntity" property="parentArea" select="queryAreaByTerritory"/>
+    </resultMap>
+</mapper>

@@ -1,6 +1,5 @@
 package cn.pipilu.tensquare.po;
 
-import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import cn.pipilu.plus.common.base.entity.BaseEntity;
@@ -9,7 +8,6 @@ import lombok.ToString;
 
 @Data
 @ToString
-@Entity
 @Table(name = "tb_label")
 public class LabelEntity extends BaseEntity {
     private static final long serialVersionUID = 8632399699790097087L;
