@@ -3,10 +3,12 @@ import cn.pipilu.plus.common.request.Request;
 import cn.pipilu.plus.common.response.Response;
 import cn.pipilu.plus.common.util.ResponseUtil;
 import cn.pipilu.plus.log.aop.ControllerRespTimeAnno;
-import cn.pipilu.tensquare.po.LabelEntity;
 import cn.pipilu.tensquare.request.AddLabelReq;
-import cn.pipilu.tensquare.response.QueryLabelReq;
+import cn.pipilu.tensquare.response.QueryLabelResp;
+import cn.pipilu.tensquare.response.QueryLableListResp;
 import cn.pipilu.tensquare.service.LabelService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +22,12 @@ public class LabelController {
     @Autowired
     private ResponseUtil responseUtil;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/{pageNo}/{pageSize}",method = RequestMethod.GET)
     @ControllerRespTimeAnno
-    public Response<List<QueryLabelReq>> findAll(){
-        Response<List<QueryLabelReq>> response = new Response<>();
+    public Response<QueryLableListResp> findAll(@PathVariable("pageNo")int pageNo, @PathVariable("pageSize")int pageSize){
+        Response<QueryLableListResp> response = new Response<>();
         try {
-            response.setRespData(labelService.findAll());
+            response.setRespData(labelService.findAll(pageNo, pageSize));
             responseUtil.setRespParam(response);
         }catch (Exception e){
             responseUtil.setRespParam(response,e);
@@ -34,8 +36,8 @@ public class LabelController {
     }
     @ControllerRespTimeAnno
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Response<QueryLabelReq> findById(@PathVariable String id){
-        Response<QueryLabelReq> response = new Response<>();
+    public Response<QueryLabelResp> findById(@PathVariable String id){
+        Response<QueryLabelResp> response = new Response<>();
         try {
             response.setRespData(labelService.findById(id));
             responseUtil.setRespParam(response);

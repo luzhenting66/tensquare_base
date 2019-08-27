@@ -1,11 +1,8 @@
 package cn.pipilu.tensquare.service;
 
-
-import cn.pipilu.tensquare.po.LabelEntity;
 import cn.pipilu.tensquare.request.AddLabelReq;
-import cn.pipilu.tensquare.response.QueryLabelReq;
-
-import java.util.List;
+import cn.pipilu.tensquare.response.QueryLabelResp;
+import cn.pipilu.tensquare.response.QueryLableListResp;
 
 /**
  * @author lzt
@@ -13,9 +10,9 @@ import java.util.List;
  * @description
  */
 public interface LabelService {
-    List<QueryLabelReq> findAll();
+    QueryLableListResp findAll(int pageNo, int pageSize);
 
     void add(AddLabelReq reqData);
 
-    QueryLabelReq findById(String id);
+    QueryLabelResp findById(String id);
 }

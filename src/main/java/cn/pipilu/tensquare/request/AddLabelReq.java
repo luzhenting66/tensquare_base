@@ -10,6 +10,6 @@ import java.io.Serializable;
 @ToString
 public class AddLabelReq implements Serializable {
     private static final long serialVersionUID = -1333507968776366334L;
-    @Validate(nullable = false,desc = "标签名称缺失",minLength = 1)
-    private String label;
+    @Validate(nullable = false, desc = "标签名称缺失", minLength = 1)
+    private String            label;
 }
