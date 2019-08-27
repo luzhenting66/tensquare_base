@@ -14,23 +14,22 @@
         FROM
         tb_area a
         WHERE
-        a.territory_code = #{territoryCode} and a.status != 'DELETED'
+        a.territory_code = #{territoryCode} and parent_area = '0' and a.status != 'DELETED'
     </select>
 
-    <select id="queryAreaByTerritory" resultMap="areaMap">
-  SELECT
-         a.area_code,
-        a.area_name,
-        a.area_type,
-        a.conn_entity,
-        a.territory_code,
-        a.`status`,
-        a.dead_sts,
-        a.parent_area
+    <select id="queryAreaByParentCode" resultMap="areaMap">
+        SELECT
+         area_code,
+        area_name,
+        area_type,
+        conn_entity,territory_code,
+        `status`,
+        dead_sts,
+        parent_area
         FROM
         tb_area a
         WHERE
-        a.territory_code = #{territoryCode} and a.status != 'DELETED'
+        a.parent_area = #{parentArea} and a.status != 'DELETED'
     </select>
 
     <resultMap id="areaMap" type="cn.pipilu.tensquare.po.AreaEntity">
@@ -42,6 +41,6 @@
         <result column="status" property="status"/>
         <result column="dead_sts" property="deadSts"/>
         <result column="territory_code" property="territoryCode"/>
-        <collection column="parent_area" ofType="cn.pipilu.tensquare.po.AreaEntity" property="parentArea" select="queryAreaByTerritory"/>
+        <collection column="{parent_area=area_code}" ofType="cn.pipilu.tensquare.po.AreaEntity" property="nodes" select="queryAreaByParentCode"/>
     </resultMap>
 </mapper>

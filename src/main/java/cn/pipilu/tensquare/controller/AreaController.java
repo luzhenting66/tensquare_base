@@ -1,6 +1,5 @@
 package cn.pipilu.tensquare.controller;
 
-import cn.pipilu.tensquare.mapper.AreaMapper;
 import cn.pipilu.tensquare.po.AreaEntity;
 import cn.pipilu.tensquare.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class AreaController {
     private AreaService areaService;
     @RequestMapping(method = RequestMethod.GET)
     public List<AreaEntity> queryAll(){
-        return areaService.queryAreaByTerritoryCode("257288911153274880");
+        return areaService.queryAll("257288911153274880");
     }
 
 }

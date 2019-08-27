@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -82,6 +83,8 @@ public class LabelServiceImpl implements LabelService {
 
     @Override
     public QueryLabelResp findById(String id) {
-        return changeData(labelMapper.selectByPrimaryKey(id));
+        LabelEntity labelEntity = new LabelEntity();
+        labelEntity.setId(id);
+        return changeData(labelMapper.selectOne(labelEntity));
     }
 }

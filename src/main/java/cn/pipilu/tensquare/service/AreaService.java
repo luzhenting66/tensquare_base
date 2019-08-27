@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface AreaService {
 
-    List<AreaEntity> queryAll();
-    List<AreaEntity> queryAreaByTerritoryCode(String code);
+    List<AreaEntity> queryAll(String code);
 }
