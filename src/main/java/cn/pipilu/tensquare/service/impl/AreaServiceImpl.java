@@ -14,12 +14,8 @@ public class AreaServiceImpl implements AreaService {
 private AreaMapper areaMapper;
     @Override
     public List<AreaEntity> queryAll(String code) {
-        List<AreaEntity> list = areaMapper.queryAreaByTerritoryCode("257288911153274880");
-        AreaEntity areaEntity = list.get(0);
-        String areaName = areaEntity.getAreaName();
-        System.err.println(areaName);
-        List<AreaEntity> areaEntities = areaMapper.queryAreaByParentCode(areaEntity.getAreaCode());
-        return areaEntities;
+        List<AreaEntity> list = areaMapper.queryAll("257288911153274880");
+        return list;
     }
 
 

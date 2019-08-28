@@ -1,5 +1,6 @@
 package cn.pipilu.tensquare.controller;
 
+import cn.pipilu.plus.log.aop.ControllerRespTimeAnno;
 import cn.pipilu.tensquare.po.AreaEntity;
 import cn.pipilu.tensquare.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class AreaController {
     @Autowired
     private AreaService areaService;
     @RequestMapping(method = RequestMethod.GET)
+    @ControllerRespTimeAnno
     public List<AreaEntity> queryAll(){
         return areaService.queryAll("257288911153274880");
     }

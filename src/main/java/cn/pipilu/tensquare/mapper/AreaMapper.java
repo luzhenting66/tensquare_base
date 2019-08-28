@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface AreaMapper extends BaseMapper<AreaEntity> {
     List<AreaEntity> queryAreaByTerritoryCode(String code);
-    List<AreaEntity> queryAreaByParentCode(String code);
+
+    List<AreaEntity> queryAll(String territoryCode);
 }

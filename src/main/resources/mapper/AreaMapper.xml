@@ -17,19 +17,19 @@
         a.territory_code = #{territoryCode} and parent_area = '0' and a.status != 'DELETED'
     </select>
 
-    <select id="queryAreaByParentCode" resultMap="areaMap">
+    <select id="queryAreaByParentCode" resultMap="areaMap" parameterType="string">
         SELECT
-         area_code,
-        area_name,
-        area_type,
-        conn_entity,territory_code,
-        `status`,
-        dead_sts,
-        parent_area
+          area_code,
+          area_name,
+          area_type,
+          conn_entity,territory_code,
+          `status`,
+          dead_sts,
+          parent_area
         FROM
-        tb_area a
+          tb_area a
         WHERE
-        a.parent_area = #{parentArea} and a.status != 'DELETED'
+          a.parent_area = #{area_code}  and a.status != 'DELETED'
     </select>
 
     <resultMap id="areaMap" type="cn.pipilu.tensquare.po.AreaEntity">
@@ -37,10 +37,28 @@
         <result column="area_name" property="areaName"/>
         <result column="area_type" property="areaType"/>
         <result column="conn_entity" property="connEntity"/>
-        <result column="conn_entity" property="connEntity"/>
+        <result column="standard_addr_code" property="standardAddrCode"/>
         <result column="status" property="status"/>
         <result column="dead_sts" property="deadSts"/>
         <result column="territory_code" property="territoryCode"/>
-        <collection column="{parent_area=area_code}" ofType="cn.pipilu.tensquare.po.AreaEntity" property="nodes" select="queryAreaByParentCode"/>
+        <result column="parent_area" property="parentArea"/>
+        <collection column="area_code" ofType="cn.pipilu.tensquare.po.AreaEntity" property="nodes" select="queryAreaByParentCode"/>
     </resultMap>
+
+    <select id="queryAll" resultMap="areaMap" parameterType="string">
+       SELECT
+          a.area_code,
+          a.parent_area,
+          a.dead_sts,
+          a.status,
+          a.area_name,
+          a.area_type,
+          a.standard_addr_code,
+          a.territory_code,
+          a.conn_entityab
+        FROM
+          tb_area a
+        WHERE
+          a.territory_code = #{territoryCode} and parent_area = '0' and a.status != 'DELETED'
+    </select>
 </mapper>

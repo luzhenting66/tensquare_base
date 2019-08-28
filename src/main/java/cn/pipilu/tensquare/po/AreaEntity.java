@@ -2,9 +2,6 @@ package cn.pipilu.tensquare.po;
 
 import cn.pipilu.plus.common.base.entity.BusinessEntity;
 import lombok.Data;
-import lombok.ToString;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
@@ -24,7 +21,6 @@ public class AreaEntity extends BusinessEntity {
     private String standardAddrCode;
     private String detailAdd;
     private String deadSts;
-
     private String status;
     private String remark;
     List<AreaEntity> nodes;
