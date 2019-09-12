@@ -19,8 +19,7 @@ import java.util.List;
 public class LabelController {
     @Autowired
     private LabelService labelService;
-    @Autowired
-    private ResponseUtil responseUtil;
+
 
     @RequestMapping(value = "/{pageNo}/{pageSize}",method = RequestMethod.GET)
     @ControllerRespTimeAnno
@@ -28,9 +27,9 @@ public class LabelController {
         Response<QueryLableListResp> response = new Response<>();
         try {
             response.setRespData(labelService.findAll(pageNo, pageSize));
-            responseUtil.setRespParam(response);
+            ResponseUtil.setRespParam(response);
         }catch (Exception e){
-            responseUtil.setRespParam(response,e);
+            ResponseUtil.setRespParam(response,e);
         }
         return response;
     }
@@ -40,9 +39,9 @@ public class LabelController {
         Response<QueryLabelResp> response = new Response<>();
         try {
             response.setRespData(labelService.findById(id));
-            responseUtil.setRespParam(response);
+            ResponseUtil.setRespParam(response);
         }catch (Exception e){
-            responseUtil.setRespParam(response,e);
+            ResponseUtil.setRespParam(response,e);
         }
         return response;
     }
@@ -52,9 +51,9 @@ public class LabelController {
         Response<Void> response = new Response<>();
         try {
             labelService.add(reqData.getReqData());
-            responseUtil.setRespParam(response);
+            ResponseUtil.setRespParam(response);
         }catch (Exception e){
-            responseUtil.setRespParam(response,e);
+            ResponseUtil.setRespParam(response,e);
         }
         return response;
     }

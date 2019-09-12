@@ -1,6 +1,6 @@
 package cn.pipilu.tensquare.service.impl;
 
-import cn.pipilu.plus.common.util.IdUtils;
+import cn.pipilu.plus.common.util.IdUtil;
 import cn.pipilu.plus.common.util.ValidateUtil;
 import cn.pipilu.tensquare.constant.LabelRecommendE;
 import cn.pipilu.tensquare.constant.LabelStateE;
@@ -15,8 +15,12 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,7 +37,9 @@ public class LabelServiceImpl implements LabelService {
     @Autowired
     private ValidateUtil validateUtil;
     @Autowired
-    private IdUtils      idUtils;
+    private IdUtil idUtils;
+    @Value("${server.port}")
+    private int port;
 
     @Override
     public QueryLableListResp findAll(int pageNo, int pageSize) {
@@ -82,6 +88,13 @@ public class LabelServiceImpl implements LabelService {
 
     @Override
     public QueryLabelResp findById(String id) {
-        return changeData(labelMapper.selectByPrimaryKey(id));
+        System.err.println("访问服务的端口是："+port);
+        Example example = new Example(LabelEntity.class);
+        example.createCriteria().andEqualTo("id",id);
+        List<LabelEntity> labelEntities = labelMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(labelEntities))
+            return null;
+
+        return changeData(labelEntities.get(0));
     }
 }
